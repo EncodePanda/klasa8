@@ -1,0 +1,619 @@
+:root {
+  color-scheme: light;
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --text: #1f2421;
+  --muted: #5d6661;
+  --line: #e3e0d8;
+  --accent: #1f6f5c;
+  --accent-text: #ffffff;
+  --accent-soft: #e4f0ec;
+  --good: #1d7a46;
+  --good-soft: #e6f4ea;
+  --bad: #b3372e;
+  --bad-soft: #fbe9e7;
+}
+
+/* Dark colours: when the device asks for them and the reader has not chosen
+   light, or when the reader has chosen dark. Keep the two blocks the same. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #151816;
+    --surface: #1d211f;
+    --text: #e8ebe8;
+    --muted: #9da7a1;
+    --line: #2e3531;
+    --accent: #6cc3ab;
+    --accent-text: #10201b;
+    --accent-soft: #1f302b;
+    --good: #6fcf97;
+    --good-soft: #1b3024;
+    --bad: #f0958c;
+    --bad-soft: #3a211f;
+  }
+
+  :root:not([data-theme="light"]) .theme-toggle .moon {
+    display: none;
+  }
+
+  :root:not([data-theme="light"]) .theme-toggle .sun {
+    display: block;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #151816;
+  --surface: #1d211f;
+  --text: #e8ebe8;
+  --muted: #9da7a1;
+  --line: #2e3531;
+  --accent: #6cc3ab;
+  --accent-text: #10201b;
+  --accent-soft: #1f302b;
+  --good: #6fcf97;
+  --good-soft: #1b3024;
+  --bad: #f0958c;
+  --bad-soft: #3a211f;
+}
+
+:root[data-theme="dark"] .theme-toggle .moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .sun {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0 1.25rem 4rem;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+body > header,
+body > nav,
+body > main {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+a {
+  color: var(--accent);
+}
+
+/* Light/dark switch, top right of every page. Shows the mode it switches to. */
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  color: var(--text);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.theme-toggle .sun {
+  display: none;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+/* Home page */
+
+header.book {
+  padding: 3rem 0 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+header.book h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.part {
+  margin-top: 2.5rem;
+}
+
+.part > h2 {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.part-number {
+  display: inline-block;
+  min-width: 1.6em;
+  margin-right: 0.6em;
+  padding: 0.05em 0.45em;
+  border-radius: 0.35em;
+  background: var(--accent-soft);
+  color: var(--accent);
+  text-align: center;
+  letter-spacing: 0;
+}
+
+ol.chapters {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ol.chapters > li {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+ol.chapters h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.2rem;
+}
+
+ol.chapters h3 a {
+  text-decoration: none;
+}
+
+ol.chapters h3 a:hover,
+ol.chapters h3 a:focus-visible {
+  text-decoration: underline;
+}
+
+ol.chapters p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.empty {
+  margin-top: 2rem;
+  color: var(--muted);
+}
+
+/* Chapter page */
+
+nav {
+  /* Leave room for the light/dark switch. */
+  padding: 1.5rem 3.5rem 0 0;
+  font-size: 0.95rem;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  text-decoration: underline;
+}
+
+header.chapter {
+  padding: 1.5rem 0 0.5rem;
+}
+
+header.chapter h1 {
+  margin: 0;
+  font-size: 1.85rem;
+}
+
+.part-name {
+  margin: 0 0 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.players {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.player {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  background: var(--surface);
+}
+
+.player button {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  min-height: 3rem;
+  padding: 0.6rem 1.1rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background: var(--accent);
+  color: var(--accent-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.player button:focus-visible {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+/* Play triangle; becomes two bars while playing. */
+.player .icon {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0.5rem 0 0.5rem 0.8rem;
+  border-color: transparent transparent transparent currentColor;
+}
+
+.player.playing .icon {
+  width: 0.8rem;
+  height: 1rem;
+  border-width: 0 0.27rem;
+  border-color: currentColor;
+}
+
+.player input[type="range"] {
+  width: 100%;
+  min-width: 0;
+  accent-color: var(--accent);
+}
+
+.player .time {
+  min-width: 5.5em;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--muted);
+}
+
+/* The seek bar and time only matter once a recording has been started. */
+.player:not(.started) input[type="range"],
+.player:not(.started) .time {
+  display: none;
+}
+
+.summary {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.section-label {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* The summary's player: a small round button beside the heading. */
+.player.compact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.player.compact .section-label {
+  margin: 0;
+}
+
+.player.compact button {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  min-height: 0;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.player.compact .icon {
+  border-width: 0.36rem 0 0.36rem 0.58rem;
+  /* A triangle looks centred when nudged towards its point. */
+  margin-left: 0.12rem;
+}
+
+.player.compact.playing .icon {
+  width: 0.62rem;
+  height: 0.72rem;
+  margin-left: 0;
+  border-width: 0 0.2rem;
+}
+
+.player.compact .time {
+  min-width: 0;
+  text-align: left;
+}
+
+.player.compact input[type="range"] {
+  flex: 1 0 100%;
+}
+
+/* The word being read aloud. */
+.w.now {
+  border-radius: 0.2em;
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 0.15em var(--accent-soft);
+  color: var(--accent);
+}
+
+.summary p {
+  margin: 0 0 1.1rem;
+}
+
+.summary h2:not(.section-label) {
+  margin: 2.5rem 0 1rem;
+  font-size: 1.3rem;
+}
+
+.summary ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.summary li {
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.summary strong {
+  font-weight: 650;
+}
+
+/* Link to the quiz, under the podcast button. */
+.quiz-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--accent);
+  border-radius: 0.9rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.quiz-link:hover,
+.quiz-link:focus-visible {
+  background: var(--accent-soft);
+}
+
+.quiz-link svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Quiz page */
+
+.quiz-label {
+  margin: 0 0 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+#quiz {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.quiz-progress {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.quiz-question {
+  margin: 0 0 1rem;
+  font-size: 1.3rem;
+}
+
+.quiz-question:focus,
+.quiz-result:focus,
+.quiz-score:focus {
+  outline: none;
+}
+
+.quiz-hint {
+  margin: -0.4rem 0 1rem;
+  color: var(--muted);
+}
+
+.quiz-answers {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.quiz-answer {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.quiz-answer input {
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0.25rem 0 0;
+  accent-color: var(--accent);
+}
+
+.quiz-answer:has(input:checked) {
+  border-color: var(--accent);
+}
+
+.quiz-answer:has(input:focus-visible) {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+.quiz-answer:has(input:disabled) {
+  cursor: default;
+}
+
+/* After checking: the right answers, and a wrong one that was picked.
+   Each has a mark as well as a colour. */
+.quiz-answer.correct {
+  border-color: var(--good);
+  background: var(--good-soft);
+}
+
+.quiz-answer.wrong {
+  border-color: var(--bad);
+  background: var(--bad-soft);
+}
+
+.quiz-answer.correct::after,
+.quiz-answer.wrong::after {
+  margin-left: auto;
+  font-weight: 700;
+}
+
+.quiz-answer.correct::after {
+  content: "✓";
+  color: var(--good);
+}
+
+.quiz-answer.wrong::after {
+  content: "✗";
+  color: var(--bad);
+}
+
+.quiz-button {
+  justify-self: start;
+  min-height: 3rem;
+  margin-top: 0.6rem;
+  padding: 0.6rem 1.4rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background: var(--accent);
+  color: var(--accent-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.quiz-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.quiz-button:focus-visible {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+.quiz-result {
+  margin-top: 1.25rem;
+  padding: 1rem 1.1rem;
+  border-left: 4px solid var(--good);
+  border-radius: 0.5rem;
+  background: var(--good-soft);
+}
+
+.quiz-result.missed {
+  border-left-color: var(--bad);
+  background: var(--bad-soft);
+}
+
+.quiz-verdict {
+  margin: 0 0 0.35rem;
+  font-weight: 700;
+}
+
+.quiz-explanation {
+  margin: 0;
+}
+
+.quiz-score {
+  padding: 1.5rem 0 0.5rem;
+  text-align: center;
+}
+
+.quiz-score-label {
+  margin: 0;
+  color: var(--muted);
+}
+
+.quiz-score-number {
+  margin: 0.2rem 0 0;
+  font-size: 2.6rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.quiz-score ~ .quiz-button {
+  display: block;
+  margin: 1rem auto 0;
+}
+
+.quiz-back {
+  display: block;
+  margin-top: 1.25rem;
+  text-align: center;
+}
